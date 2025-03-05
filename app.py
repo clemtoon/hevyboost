@@ -2,6 +2,21 @@ import streamlit as st
 import pandas as pd
 import plotly.express as px
 from datetime import datetime
+import random  # Add this import
+
+# Conor McGregor Motivational Quotes
+MOTIVATION_QUOTES = [
+    "There's no talent here, this is hard work. This is an obsession.",
+    "The more you seek the uncomfortable, the more you will become comfortable.",
+    "I am not talented, I am obsessed.",
+    "Excellence is not a skill... excellence is an attitude.",
+    "Doubt is only removed by action. If you're not working then that's where doubt comes in.",
+    "All that matters is how you see yourself. If you see yourself as the king, with all the belts and everything, and no matter what no one else says, as long as you see that, and really believe in it, then that's what's going to happen.",
+    "Life is about growing and improving and getting better.",
+    "Success isn't a result of arrogance - it's a result of belief.",
+    "Nothing good ever comes from worrying or sitting there feeling sorry for yourself... keep positive and keep pushing on and things will turn good.",
+    "I stay ready so I don't have to get ready."
+]
 
 # Page configuration
 st.set_page_config(
@@ -143,7 +158,36 @@ def load_and_process_data(df):
 
 def main():
     # Header with icon
-    st.markdown("# 💪 Workout Analytics Dashboard")
+    st.markdown("# Getting stronger together... 💪")
+    
+    # Add random motivation quote with styling
+    quote = random.choice(MOTIVATION_QUOTES)
+    st.markdown(
+        f"""
+        <div style="
+            padding: 1rem;
+            border-left: 4px solid #00ff00;
+            background-color: #1E1E1E;
+            margin: 1rem 0;
+            border-radius: 0.5rem;
+        ">
+            <p style="
+                font-style: italic;
+                color: #00ff00;
+                margin: 0;
+                font-size: 1.1rem;
+            ">"{quote}"</p>
+            <p style="
+                color: #888888;
+                margin: 0.5rem 0 0 0;
+                font-size: 0.9rem;
+                text-align: right;
+            ">- Conor McGregor</p>
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
+    
     st.markdown("---")
     
     # File upload with instructions
@@ -260,11 +304,12 @@ def main():
         
         # Display KPI cards
         with col1:
+            reps_this_week_label = "Reps This Week" if this_week_reps > 0 else "Reps This Week (wtf bro???)"
             st.markdown(
                 f"""
                 <div class="metric-card">
                     <div class="metric-value">{this_week_reps:,}</div>
-                    <div class="metric-label">Reps This Week</div>
+                    <div class="metric-label">{reps_this_week_label}</div>
                 </div>
                 """,
                 unsafe_allow_html=True
